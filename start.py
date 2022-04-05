@@ -11,8 +11,8 @@ import wolframalpha
 import pyjokes
 from julee.scrape import duckduckgo_scrape_knowledge
 
-# print('Loading your AI personal assistant - JULEE')
 
+#VOICE MODULE (voice feedback)
 engine = pyttsx3.init()
 voices = engine.getProperty('voices')
 engine.setProperty('rate', 195)
@@ -26,23 +26,6 @@ def speak(text):
     engine.say(text)
     engine.runAndWait()
 
-
-"""
-def wishMe():
-    hour = datetime.datetime.now().hour
-    if hour >= 0 and hour < 12:
-        speak("Hello, Good Morning")
-        print("Hello, Good Morning")
-    elif hour >= 12 and hour < 18:
-        speak("Hello, Good Afternoon")
-        print("Hello, Good Afternoon")
-    else:
-        speak("Hello, Good Evening")
-        print("Hello, Good Evening")
-    speak("How can I help you?")
-"""
-
-
 def startApp(flag):
     if not flag:
         # Listen until the keyword is said
@@ -50,7 +33,7 @@ def startApp(flag):
         while True:
             r = sr.Recognizer()
             with sr.Microphone() as source:
-                print("Listening...")
+                print("Waiting for any commands...")
                 # r.pause_threshold = 0.8
                 audio = r.listen(source)
             try:
@@ -91,12 +74,10 @@ def takeCommand():
         return "None"  # Say that again will be printed in case of improper voice
     return temp_query
 
-
-# speak("Loading JULEE")
-# wishMe()
-
 if __name__ == "__main__":
+    #open application
     appCalled = startApp(False)
+    
     while True:
         while appCalled:
                 query = takeCommand().lower()  # Converting user query into lower case
@@ -105,8 +86,8 @@ if __name__ == "__main__":
 
                 # Logic for executing tasks based on query
                 if "bye" in query or "goodbye" in query or "ok bye" in query or "stop" in query or "exit" in query:
-                    speak('Ok. Good bye')
-                    print('Ok. Good bye')
+                    speak('Have a nice day. Good bye')
+                    print('Have a nice day. Good bye')
                     break
 
                 if 'wikipedia' in query:  # if wikipedia found in the query then this block will be executed
@@ -117,26 +98,20 @@ if __name__ == "__main__":
                     print(results)
                     speak(results)
 
-                elif 'open youtube' in query:
+                elif 'youtube' in query:
                     webbrowser.open_new_tab("https://www.youtube.com")
                     speak("youtube is open now")
                     time.sleep(5)
 
-                elif 'open google' in query:
+                elif 'google' in query:
                     webbrowser.open_new_tab("https://www.google.com")
                     speak("Google is open now")
                     time.sleep(5)
 
-                elif 'open facebook' in query:
+                elif 'facebook' in query:
                     webbrowser.open("https://www.facebook.com")
                     speak("Facebook is open now")
                     time.sleep(5)
-
-                elif 'play music' in query:
-                    music_dir = 'C:\\Users\\Public\\Music'
-                    songs = os.listdir(music_dir)
-                    print(songs)
-                    os.startfile(os.path.join(music_dir, songs[0]))
 
                 elif 'the time' in query:
                     strTime = datetime.datetime.now().strftime("%H:%M:%S")
@@ -217,5 +192,15 @@ if __name__ == "__main__":
                     joke = pyjokes.get_joke()
                     speak(joke)
                     print(joke)
+                    
+                # Open Closing Apps (Dictapp.py)
+                elif "open" in query:
+                    from Dictapp import openappweb
+                    openappweb(query)           
+                elif "close" in query:
+                    from Dictapp import closeappweb
+                    closeappweb(query)
+                    
+                
 
 time.sleep(3)
