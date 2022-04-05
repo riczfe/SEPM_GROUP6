@@ -17,4 +17,4 @@ It can recognize human speech, talk to user and execute basic commands.
 > To be updated
 
 ## License
-[MIT License](https://github.com/rexxtd/Julee-voice-assistant/blob/main/LICENSE). 
+[MIT License](https://github.com/riczfe/SEPM_GROUP6/blob/main/LICENSE). 
