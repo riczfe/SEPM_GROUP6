@@ -13,13 +13,13 @@ def speak(audio):
     engine.say(audio)
     engine.runAndWait()
 
-dictapp = {"commandprompt":"cmd","paint":"paint","word":"winword","excel":"excel","chrome":"chrome","vscode":"code","powerpoint":"powerpnt"}
+dictapp = {"command prompt":"cmd","paint":"mspaint","word":"winword","excel":"excel","chrome":"chrome","vscode":"code","powerpoint":"powerpnt"}
 
 def openappweb(query):
     speak("Launching, sir")
     if ".com" in query or ".co.in" in query or ".org" in query:
         query = query.replace("open","")
-        query = query.replace("jarvis","")
+        query = query.replace("julie","")
         query = query.replace("launch","")
         query = query.replace(" ","")
         webbrowser.open(f"https://www.{query}")
