@@ -20,7 +20,7 @@ dictapp = {"command prompt": "cmd", "control panel": "control", "resource monito
            "paint": "mspaint", "word": "winword", "excel": "excel", "powerpoint": "powerpnt",
            "this pc": "explorer", "file explorer": "explorer", "my folder": ".",
            "chrome": "chrome", "firefox": "firefox", "edge": "msedge",
-           "vscode": "code", "calculator": "calc",
+           "vscode": "code", "calculator": "calc", "notepad": "notepad",
            "keyboard": "osk", "mouse setting": "main.cpl"}
 
 
