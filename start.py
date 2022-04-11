@@ -1,3 +1,4 @@
+import pyautogui
 import pyttsx3
 import speech_recognition as sr
 import datetime
@@ -147,16 +148,6 @@ if __name__ == "__main__":
                 elif 'define' in query:
                     time.sleep(5)
 
-                elif 'ask' in query:
-                    speak('I can answer to computational and geographical questions and what question do you want to ask now')
-                    question = takeCommand()
-                    app_id = "R2K75H-7ELALHR35X"
-                    client = wolframalpha.Client('R2K75H-7ELALHR35X')
-                    res = client.query(question)
-                    answer = next(res.results).text
-                    speak(answer)
-                    print(answer)
-
                 elif "weather" in query:
                     api_key = "8ef61edcf1c576d65d836254e11ea420"
                     base_url = "https://api.openweathermap.org/data/2.5/weather?"
@@ -194,13 +185,11 @@ if __name__ == "__main__":
                     print(joke)
                     
                 # Open Closing Apps (Dictapp.py)
-                elif "open" in query:
+                elif "open" in query or "launch" in query:
                     from Dictapp import openappweb
                     openappweb(query)           
                 elif "close" in query:
                     from Dictapp import closeappweb
                     closeappweb(query)
-                    
-                
 
 time.sleep(3)
