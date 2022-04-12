@@ -1,0 +1,77 @@
+{
+  "intents": [
+    {
+      "tag": "greeting",
+      "utterances": [
+        "hi",
+        "wake up julee",
+        "hello julle"
+      ],
+      "response": [
+        "Hello Sir, How may i help you?",
+        "Hello Sir, always at your service."
+      ]
+    },
+    {
+      "tag": "applications",
+      "utterances": [
+        "open",
+        "launch",
+        "app",
+        "application"
+      ],
+      "response": [
+        "Ok sir.",
+        "sure sir."
+      ]
+    },
+    {
+      "tag": "alarm",
+      "utterances": [
+        "set alarm",
+        "wake me up"
+      ],
+      "response": [
+        "sure sir.",
+        "ok sir.",
+        "alarm set for you."
+      ]
+    },
+    {
+      "tag": "google_search",
+      "utterances": [
+        "search",
+        "who is ",
+        "who are ",
+        "what is ",
+        "why "
+      ],
+      "response": [
+        "Got it Sir.",
+        "I got the things for which you are looking for.",
+        "Give me a sec sir."
+      ]
+    },
+    {
+      "tag": "youtube_search",
+      "utterances": [
+        "play video on youtube",
+        "search video on youtube",
+        "play"
+      ],
+      "response": [
+        "Got it Sir.",
+        "Give me a second sir."
+      ]
+    },
+    {
+      "tag": "translate",
+      "utterances": [
+        "translate",
+        "how to speak"
+      ],
+      "response": [
+      ]
+    }
+  ]
+}
