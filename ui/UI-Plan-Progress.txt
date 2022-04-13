@@ -1,8 +1,8 @@
 Plan:
 Automatic Logo change when using functions from start.py
-Automatic change Logo & background color when Jullee Activate (How can I help you)
+Automatic change Logo & background color when Jullee Activate (-> How can I help you)
 Display speech text in auto scrolling text box
-Play animation arround logo when Julee is speaking
+Play animation around logo when Julee is speaking
 
 Progress:
 UI can change on demand, framework to add more logos is ready
@@ -13,8 +13,8 @@ Finish the Text box
 Automatic Julee logo move away when functions logo are running
 Automatic Julee logo return after functions logo are off
 Connect GUI to back-end
+Replace better Logo
 Delete Debug buttons
 
 Problem:
 How to run GUI and back-end at the same time? (Threading? Slot and signal)
-
