@@ -1,12 +1,17 @@
 Plan:
-Automatic Logo change when using functions from start.py
-Automatic change Logo & background color when Jullee Activate (-> How can I help you)
-Display speech text in auto scrolling text box
+* Automatic Logo change when using functions from start.py
+* Automatic change Logo & background color when Jullee Activate (-> How can I help you)
+* Display speech text in auto scrolling text box
+-> Line by line animation
+-> Auto Scroll
 Play animation around logo when Julee is speaking
 
 Progress:
+(13/04/2022)
 UI can change on demand, framework to add more logos is ready
 Basic animation
+(14/02/2022)
+Text box can accept text from debug button, automatically create scroll bar (base qt function)
 
 To be done:
 Finish the Text box
@@ -17,4 +22,10 @@ Replace better Logo
 Delete Debug buttons
 
 Problem:
-How to run GUI and back-end at the same time? (Threading? Slot and signal)
+* How to animate a text box
+Potential solution:
+-> https://stackoverflow.com/questions/48179891/how-to-scroll-text-in-qtextedit-automatically-animational-effect
+(Error with undefined function)
+-> https://stackoverflow.com/questions/27608011/pyqt-set-text-in-a-qlabel-adding-letter-by-letter
+(Written with PyQt4, must rewrite into PyQt5)
+* How to run GUI and back-end at the same time? (Threading? Slot and signal)
