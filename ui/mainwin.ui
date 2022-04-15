@@ -106,25 +106,6 @@
      <string>DEBUG: Activate ON/OFF</string>
     </property>
    </widget>
-   <widget class="QLabel" name="TextBox">
-    <property name="geometry">
-     <rect>
-      <x>210</x>
-      <y>420</y>
-      <width>331</width>
-      <height>101</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">background-color: rgb(255, 255, 255);</string>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
-    </property>
-   </widget>
    <widget class="QGroupBox" name="groupBox">
     <property name="geometry">
      <rect>
@@ -336,13 +317,52 @@
      </property>
     </widget>
    </widget>
+   <widget class="QPushButton" name="Debug_4">
+    <property name="geometry">
+     <rect>
+      <x>580</x>
+      <y>450</y>
+      <width>111</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(255, 255, 255);</string>
+    </property>
+    <property name="text">
+     <string>DEBUG: Run Text</string>
+    </property>
+   </widget>
+   <widget class="QTextEdit" name="TextBox">
+    <property name="geometry">
+     <rect>
+      <x>230</x>
+      <y>400</y>
+      <width>321</width>
+      <height>131</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(255, 255, 255);</string>
+    </property>
+    <property name="lineWrapMode">
+     <enum>QTextEdit::FixedPixelWidth</enum>
+    </property>
+    <property name="readOnly">
+     <bool>true</bool>
+    </property>
+    <property name="tabStopWidth">
+     <number>81</number>
+    </property>
+   </widget>
    <zorder>Debug_1</zorder>
    <zorder>DynamicLogo</zorder>
    <zorder>MainLogo</zorder>
    <zorder>Debug_2</zorder>
    <zorder>Debug_3</zorder>
-   <zorder>TextBox</zorder>
    <zorder>groupBox</zorder>
+   <zorder>Debug_4</zorder>
+   <zorder>TextBox</zorder>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">

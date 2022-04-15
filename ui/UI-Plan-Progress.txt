@@ -29,3 +29,6 @@ Potential solution:
 -> https://stackoverflow.com/questions/27608011/pyqt-set-text-in-a-qlabel-adding-letter-by-letter
 (Written with PyQt4, must rewrite into PyQt5)
 * How to run GUI and back-end at the same time? (Threading? Slot and signal)
+Potential Solution 2:
+https://www.instructables.com/How-to-Make-a-GUI-Virtual-Assistant/
+(WTF, A 12 YEAR OLD MADE THIS)
