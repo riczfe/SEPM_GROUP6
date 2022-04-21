@@ -2,9 +2,10 @@ from PyQt5 import QtWidgets, uic, QtGui
 from PyQt5.QtCore import QPropertyAnimation, QPoint
 import sys
 import lorem #for testing text box
-import AnimatedText
+#import AnimatedText
 
-islogoon = 0
+
+isMicOn = 0
 isLogoCorner = 0
 class Ui(QtWidgets.QMainWindow):
     
@@ -12,20 +13,17 @@ class Ui(QtWidgets.QMainWindow):
     def __init__(self):
         super(Ui, self).__init__() # Call the inherited classes __init__ method
         uic.loadUi('ui/mainwin.ui', self) # Load the .ui file
-        self.DynamicLogo.hide
+        self.DynamicLogo.hide()
+        #self.thread={}
         self.setDebugButtons()
         self.show() # Show the GUI  
         
     def activateLogo(self):
-        global islogoon
-        if islogoon == 0:
-            self.MainLogo.setPixmap(QtGui.QPixmap("Assets\Logo\JulleeON.png"))
-            self.setStyleSheet("background-color: rgb(0, 85, 127);")
-            islogoon = 1
-        else: 
-            self.MainLogo.setPixmap(QtGui.QPixmap("Assets\Logo\JulleeOFF.png"))
-            self.setStyleSheet("background-color: rgb(50, 50, 50);")
-            islogoon = 0
+        self.MainLogo.setPixmap(QtGui.QPixmap("Assets\Logo\JulleeON.png"))
+        self.setStyleSheet("background-color: rgb(0, 85, 127);")
+    def deactivateLogo(self):
+        self.MainLogo.setPixmap(QtGui.QPixmap("Assets\Logo\JulleeOFF.png"))
+        self.setStyleSheet("background-color: rgb(50, 50, 50);")
 
     def moveLogo1(self):
         #ANIMATION TEST
@@ -48,6 +46,23 @@ class Ui(QtWidgets.QMainWindow):
 
     def DisplayText(self, insertText): #UNDER CONSTRUCTION
         self.TextBox.setText(insertText)
+
+    def DisplayText2(self, insertText): #UNDER CONSTRUCTION
+        self.TextBox_2.setText(insertText)
+
+    def micFunction(): #UNDER CONSTRUCTION
+        self.Button_mic.setIcon(QtGui.QPixmap("Assets\Logo\Mic_On.png"))
+
+
+    def activateMic(self):
+        global isMicOn
+        if isMicOn == 0:
+            self.Button_mic.setIcon(QtGui.QIcon("Assets\Logo\Mic_On.png"))
+            #self.MainLogo.setPixmap(QtGui.QPixmap("Assets\Logo\JulleeON.png"))
+            isMicOn = 1
+        else: 
+            self.Button_mic.setIcon(QtGui.QIcon("Assets\Logo\Mic.png"))
+            isMicOn = 0
            
 
     def setDebugButtons(self):
@@ -56,6 +71,7 @@ class Ui(QtWidgets.QMainWindow):
         self.Debug_2.clicked.connect(lambda: self.moveLogo2())
         self.Debug_3.clicked.connect(lambda: self.activateLogo())
         self.Debug_4.clicked.connect(lambda: self.DisplayText(loremText))
+        self.Button_mic.clicked.connect(lambda: self.activateMic())
         #Logo Change sets
         self.Button_FB.clicked.connect(lambda: self.changeLogo("Assets\Logo\FB.png"))
         self.Button_Google.clicked.connect(lambda: self.changeLogo("Assets\Logo\Google.png"))
@@ -66,14 +82,12 @@ class Ui(QtWidgets.QMainWindow):
         self.Button_Who.clicked.connect(lambda: self.changeLogo("Assets\Logo\Who.png"))
         self.Button_Wiki.clicked.connect(lambda: self.changeLogo("Assets\Logo\Wiki.png"))
         self.Button_Youtube.clicked.connect(lambda: self.changeLogo("Assets\Logo\Youtube.png"))
-        loremText = lorem.paragraph() + lorem.paragraph() + lorem.paragraph() + lorem.paragraph()
+        loremText = lorem.paragraph()
         
 
     
 
-    
-
-###FOR DEBUGGING ONLY
+##FOR DEBUGGING ONLY
 #app = QtWidgets.QApplication(sys.argv) # Create an instance of QtWidgets.QApplication
 #window = Ui() # Create an instance of our class
 #app.exec_() # Start the application

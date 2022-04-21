@@ -337,9 +337,9 @@
     <property name="geometry">
      <rect>
       <x>230</x>
-      <y>400</y>
+      <y>370</y>
       <width>321</width>
-      <height>131</height>
+      <height>41</height>
      </rect>
     </property>
     <property name="styleSheet">
@@ -372,13 +372,68 @@
     </property>
     <property name="icon">
      <iconset>
-      <normaloff>../Assets/Logo/Mic.png</normaloff>../Assets/Logo/Mic.png</iconset>
+      <normaloff>../Assets/Logo/Mic.png</normaloff>
+      <normalon>../Assets/Logo/Mic_On.png</normalon>../Assets/Logo/Mic.png</iconset>
     </property>
     <property name="iconSize">
      <size>
       <width>128</width>
       <height>128</height>
      </size>
+    </property>
+   </widget>
+   <widget class="QTextEdit" name="TextBox_2">
+    <property name="geometry">
+     <rect>
+      <x>230</x>
+      <y>480</y>
+      <width>321</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(255, 255, 255);</string>
+    </property>
+    <property name="lineWrapMode">
+     <enum>QTextEdit::FixedPixelWidth</enum>
+    </property>
+    <property name="readOnly">
+     <bool>true</bool>
+    </property>
+    <property name="tabStopWidth">
+     <number>81</number>
+    </property>
+   </widget>
+   <widget class="QLabel" name="Text_label1">
+    <property name="geometry">
+     <rect>
+      <x>230</x>
+      <y>340</y>
+      <width>71</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(255, 255, 127);</string>
+    </property>
+    <property name="text">
+     <string>JULLEE</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="Text_label2">
+    <property name="geometry">
+     <rect>
+      <x>230</x>
+      <y>450</y>
+      <width>111</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(255, 170, 255);</string>
+    </property>
+    <property name="text">
+     <string>Voice Recognition</string>
     </property>
    </widget>
    <zorder>Debug_1</zorder>
@@ -390,6 +445,9 @@
    <zorder>Debug_4</zorder>
    <zorder>TextBox</zorder>
    <zorder>Button_mic</zorder>
+   <zorder>TextBox_2</zorder>
+   <zorder>Text_label1</zorder>
+   <zorder>Text_label2</zorder>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">

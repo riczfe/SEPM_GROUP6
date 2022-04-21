@@ -9,6 +9,12 @@ import time
 import requests
 import wolframalpha
 import pyjokes
+
+import UI
+import sys
+from PyQt5 import QtWidgets, uic, QtGui
+
+
 from julee.scrape import duckduckgo_scrape_knowledge
 
 # print('Loading your AI personal assistant - JULEE')
@@ -18,13 +24,17 @@ voices = engine.getProperty('voices')
 engine.setProperty('rate', 195)
 engine.setProperty('voice', voices[1].id)  # (depending on your default voice selector on control panel,
 
+app = QtWidgets.QApplication(sys.argv) # Create an instance of QtWidgets.QApplication
+window = UI.Ui() # Create an instance of our class
 
 # normally 0 for male and 1 for female)
 
 
 def speak(text):
-    engine.say(text)
+    window.DisplayText(text)
+    engine.say(text) 
     engine.runAndWait()
+
 
 
 """
@@ -56,6 +66,8 @@ def startApp(flag):
             try:
                 for i in keywords:
                     if i in r.recognize_google(audio, language='en-in').lower():
+                        window.DisplayText2(r.recognize_google(audio, language='en-in'))
+                        window.activateLogo()
                         speak("Hi, how can I help you?")
                         print("Hi, how can I help you?")
                         return True
@@ -89,6 +101,8 @@ def takeCommand():
             speak("I'm not sure I understand.")
             speak("Can you say that again.")
         return "None"  # Say that again will be printed in case of improper voice
+
+    window.DisplayText2(r.recognize_google(audio, language='en-in'))
     return temp_query
 
 
@@ -105,6 +119,7 @@ if __name__ == "__main__":
 
                 # Logic for executing tasks based on query
                 if "bye" in query or "goodbye" in query or "ok bye" in query or "stop" in query or "exit" in query:
+                    window.deactivateLogo
                     speak('Ok. Good bye')
                     print('Ok. Good bye')
                     break
@@ -124,6 +139,7 @@ if __name__ == "__main__":
 
                 elif 'open google' in query:
                     webbrowser.open_new_tab("https://www.google.com")
+                    
                     speak("Google is open now")
                     time.sleep(5)
 
@@ -218,4 +234,6 @@ if __name__ == "__main__":
                     speak(joke)
                     print(joke)
 
+
+app.exec_() # Start the application
 time.sleep(3)
