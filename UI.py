@@ -1,12 +1,17 @@
 from PyQt5 import QtWidgets, uic, QtGui
-from PyQt5.QtCore import QPropertyAnimation, QPoint
+from PyQt5.QtCore import QPropertyAnimation, QPoint, QThread
 import sys
-import lorem #for testing text box
+import lorem
+
+from juleev1 import JULEE 
+#for testing text box
 #import AnimatedText
 
 
 isMicOn = 0
 isLogoCorner = 0
+isActivated = False
+
 class Ui(QtWidgets.QMainWindow):
     
 
@@ -19,11 +24,15 @@ class Ui(QtWidgets.QMainWindow):
         self.show() # Show the GUI  
         
     def activateLogo(self):
-        self.MainLogo.setPixmap(QtGui.QPixmap("Assets\Logo\JulleeON.png"))
-        self.setStyleSheet("background-color: rgb(0, 85, 127);")
-    def deactivateLogo(self):
-        self.MainLogo.setPixmap(QtGui.QPixmap("Assets\Logo\JulleeOFF.png"))
-        self.setStyleSheet("background-color: rgb(50, 50, 50);")
+        global isActivated 
+        if isActivated == True:
+            self.MainLogo.setPixmap(QtGui.QPixmap("Assets\Logo\JulleeOFF.png"))
+            self.setStyleSheet("background-color: rgb(50, 50, 50);")
+            isActivated = False
+        else:
+            self.MainLogo.setPixmap(QtGui.QPixmap("Assets\Logo\JulleeON.png"))
+            self.setStyleSheet("background-color: rgb(0, 85, 127);")
+            isActivated = True
 
     def moveLogo1(self):
         #ANIMATION TEST
@@ -50,7 +59,7 @@ class Ui(QtWidgets.QMainWindow):
     def DisplayText2(self, insertText): #UNDER CONSTRUCTION
         self.TextBox_2.setText(insertText)
 
-    def micFunction(): #UNDER CONSTRUCTION
+    def micFunction(self): #UNDER CONSTRUCTION
         self.Button_mic.setIcon(QtGui.QPixmap("Assets\Logo\Mic_On.png"))
 
 
@@ -64,6 +73,27 @@ class Ui(QtWidgets.QMainWindow):
             self.Button_mic.setIcon(QtGui.QIcon("Assets\Logo\Mic.png"))
             isMicOn = 0
            
+    def runJullee(self):
+        self.thread = QThread()
+        self.julee = JULEE()
+        self.julee.moveToThread(self.thread)
+        #Slot Assign
+        self.thread.started.connect(self.julee.run)
+        self.julee.finished.connect(self.thread.quit)
+        self.julee.finished.connect(self.julee.deleteLater)
+        self.thread.finished.connect(self.thread.deleteLater)
+        self.julee.speech_julee.connect(self.DisplayText)
+        self.julee.speech_user.connect(self.DisplayText2)
+        self.julee.flag_on.connect(self.activateLogo)
+        self.julee.flag_off.connect(self.activateLogo)
+        self.thread.start()
+        
+
+
+
+
+
+
 
     def setDebugButtons(self):
         #DEBUG BUTTONS
@@ -87,7 +117,8 @@ class Ui(QtWidgets.QMainWindow):
 
     
 
-##FOR DEBUGGING ONLY
-#app = QtWidgets.QApplication(sys.argv) # Create an instance of QtWidgets.QApplication
-#window = Ui() # Create an instance of our class
-#app.exec_() # Start the application
+#FOR DEBUGGING ONLY
+app = QtWidgets.QApplication(sys.argv) # Create an instance of QtWidgets.QApplication
+window = Ui() # Create an instance of our class
+window.runJullee()
+app.exec_() # Start the application
