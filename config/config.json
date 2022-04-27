@@ -41,7 +41,7 @@
     {
       "tag": "simple_question",
       "utterances": [
-        "what are you doing", "what are you up to", "what are you up to right now", "are you doing anything",
+        "doing", "what are you up to", "what are you up to right now", "are you doing anything",
         "are you doing anything right now", "what are you doing these days"
       ],
       "response": [
