@@ -1,197 +1,196 @@
-import pyautogui
-import pyttsx3
 import speech_recognition as sr
-import datetime
-import wikipedia
-import webbrowser
 import os
-import random
-import time
-import requests
+import pygame
+import playsound
+from gtts import gTTS
+from pathlib import Path  # for directory listing
+import tensorflow as tf
 
-import pyjokes
-from julee.scrape import duckduckgo_scrape_knowledge
-from Dictapp import openappweb, closeappweb
+import model
+from model.model_training import TrainingModel
 
-# VOICE MODULE (voice feedback)
-engine = pyttsx3.init()
-voices = engine.getProperty('voices')
-engine.setProperty('rate', 195)
-engine.setProperty('voice', voices[1].id)  # (depending on your default voice selector on control panel,
+from julee.intents.joke import get_joke
+from julee.intents.knowledge_scrape import google_search
+from julee.intents.news import open_news
+from julee.intents.time import get_time
+from julee.intents.weather import get_weather
+from julee.intents.wikipedia import get_wikipedia
+from julee.intents.open import get_open
+from julee.intents.close import get_close
 
 
-# normally 0 for male and 1 for female)
-
-
+# using gTTS to read text
 def speak(text):
-    engine.say(text)
-    engine.runAndWait()
+    # print(text)
+    text_to_speech = gTTS(text=text, lang='en')
+    filename = "temp.mp3"  # bypass saving a mp3 file of answering
+    text_to_speech.save(filename)
+    playsound.playsound(filename)
+    os.remove(filename)
 
 
-def startApp(flag):
-    if not flag:
-        # Listen until the keyword is said
-        keywords = ["julie", "julee"]
-        while True:
-            r = sr.Recognizer()
-            with sr.Microphone() as source:
-                print("Waiting for any commands...")
-                # r.pause_threshold = 0.8
-                audio = r.listen(source)
-            try:
-                for i in keywords:
-                    if i in r.recognize_google(audio, language='en-in').lower():
-                        speak("Hi, how can I help you?")
-                        print("Hi, how can I help you?")
-                        return True
-                        break
-            except sr.UnknownValueError:
-                print("Could not understand audio")
-            except sr.RequestError as e:
-                print("Could not request results; {0}".format(e))
+# play activate sound
+def activate():
+    path = Path(__file__).parent / "./data/sound/activate.mp3"
+    play_sound(path)
 
 
-def takeCommand():
-    r = sr.Recognizer()
-    with sr.Microphone() as source:
-        print("Listening...")
-        # r.pause_threshold = 0.8
-        audio = r.listen(source)
+# play finish sound
+def finish():
+    path = Path(__file__).parent / "./data/sound/finish.mp3"
+    play_sound(path)
 
-    # It takes microphone input from the user and returns string output
+
+# using pygame to play sound
+def play_sound(path):
+    pygame.init()
+    pygame.mixer.init()
+    sound = pygame.mixer.Sound(path)
+    sound.play()
+
+
+def read_voice_cmd():
+    speech = sr.Recognizer()
+    voice_input = ''
     try:
-        print("Hang on a sec...")
-        temp_query = r.recognize_google(audio, language='en-in')  # Using google for voice recognition.
+        with sr.Microphone() as source:
+            print("Waiting for any commands...")
+            audio = speech.listen(source=source, timeout=5, phrase_time_limit=5)
+        # recognize speech using Google Speech Recognition
+        voice_input = speech.recognize_google(audio, language='en')
+        print('Input: {}'.format(voice_input))
+    except sr.UnknownValueError:
+        print("Could not understand audio")
+    except sr.RequestError as e:
+        print("Could not request results; {0}".format(e))
+    except sr.WaitTimeoutError:
+        pass
+    except TimeoutError:
+        pass
+    return voice_input.lower()
 
-    except Exception as e:
-        # print(e)
-        decide = random.randint(1, 2)
-        if decide == 1:
-            speak("Pardon me, could you say that again")
+
+# listening until julee is called
+def auto_recognize(command_rec, flag):
+    # it is impossible to know the word "julee", so have to put the word with similar sound
+    keywords = ["julie", "julee", "yulee", "yulie", "jewelry", "jule",
+                "julia", "juli", "julio", "julay", "juley", "julery",
+                "jullie", "jully", "julet", "juli", "rulie", "jolie", "jolee",
+                "guillie", "julien", "juni"]
+
+    # check if keyword appear
+    for i in keywords:
+        if i in command_rec:
+            flag = True
+            break
+    return flag
+
+
+# loading trained model for prediction
+def load_model():
+    words = model.words
+    classes = model.classes
+
+    training_model_temp = TrainingModel(words, classes, model.data_x, model.data_y)
+    trained_model_temp = tf.keras.models.load_model("./model/final_model.h5")
+    return training_model_temp, trained_model_temp
+
+
+# remove to avoid error from the answer
+def preprocess_command(preprocess_input):
+    command_preprocess = preprocess_input.lower()
+    command_preprocess = command_preprocess.replace("can you", "")
+    command_preprocess = command_preprocess.replace("could you", "")
+    command_preprocess = command_preprocess.replace("may you", "")
+    command_preprocess = command_preprocess.replace("might you", "")
+    command_preprocess = command_preprocess.replace("will you", "")
+    command_preprocess = command_preprocess.replace("would you", "")
+    command_preprocess = command_preprocess.replace("can you", "")
+    command_preprocess = command_preprocess.replace("please", "")
+    return command_preprocess
+
+
+def intents_load(command_intent, intent, response):
+    simples = ["greeting", "alt_greet", "simple_question", "bye", "introduction", "skill", "misunderstanding"]
+    for i in simples:
+        if intent == i:
+            result = response
+            if intent == 'skill':
+                print('https://github.com/riczfe/SEPM_GROUP6')
+            return result
+
+    if intent == 'joke':
+        result = get_joke()
+        return result
+
+    elif intent == 'news':
+        open_news()
+        result = response
+        return result
+
+    elif intent == 'time':
+        result = get_time()
+        return result
+
+    elif intent == 'weather':
+        speak("What's the city name?")
+        activate()
+        city_name = read_voice_cmd()
+        finish()
+        if city_name or city_name != "":
+            result = get_weather(city_name)
+        # if did not say city then just drop the weather function(but needed to implement to GUI)
         else:
-            speak("Hmm")
-            speak("I'm not sure I understand.")
-            speak("Can you say that again.")
-        return "None"  # Say that again will be printed in case of improper voice
-    return temp_query
+            result = 'Cancel searching.'
+        return result
+
+    elif intent == 'google_search':
+        result = google_search(command_intent)
+        if result is not None:
+            print(result)
+            return 'Here are some information.'
+        else:
+            result = 'Cancel searching.'
+            return result
+
+    elif intent == 'wikipedia':
+        result = get_wikipedia(command_intent)
+        return result
+
+    elif intent == 'control_open':
+        result = get_open(command_intent)
+        return result
+
+    elif intent == 'control_close':
+        result = get_close(command_intent)
+        return result
 
 
-if __name__ == "__main__":
-    # open application
-    appCalled = startApp(False)
-
+if __name__ == '__main__':
+    training_model, trained_model = load_model()
     while True:
-        while appCalled:
-            query = takeCommand().lower()  # Converting user query into lower case
-            if query == 0:
-                continue
-
-            # Logic for executing tasks based on query
-            if "bye" in query or "goodbye" in query or "ok bye" in query or "stop" in query or "exit" in query:
-                speak('Have a nice day. Good bye')
-                print('Have a nice day. Good bye')
-                break
-
-            if 'wikipedia' in query:  # if wikipedia found in the query then this block will be executed
-                speak('Searching Wikipedia...')
-                query = query.replace("wikipedia", "")
-                results = wikipedia.summary(query, sentences=3)
-                speak("According to Wikipedia")
-                print(results)
-                speak(results)
-
-            elif 'youtube' in query:
-                webbrowser.open_new_tab("https://www.youtube.com")
-                speak("youtube is open now")
-                time.sleep(5)
-
-            elif 'google' in query:
-                webbrowser.open_new_tab("https://www.google.com")
-                speak("Google is open now")
-                time.sleep(5)
-
-            elif 'facebook' in query:
-                webbrowser.open("https://www.facebook.com")
-                speak("Facebook is open now")
-                time.sleep(5)
-
-            elif 'the time' in query:
-                strTime = datetime.datetime.now().strftime("%H:%M:%S")
-                print("the time is ", {strTime})
-                speak("Sir, the time is {strTime}")
-
-            elif 'who are you' in query or 'can you do' in query or 'what are you' in query or 'your name' in query:
-                speak('I"m JULEE, your personal assistant. I am programmed to minor tasks like '
-                      'opening youtube, google chrome, gmail and stackoverflow, predict time, take a photo, search on wikipedia, predict weather'
-                      'in different cities , get top headline news from times and you can ask me computational or geographical questions too!')
-
-            elif "who made you" in query or "who created you" in query or "who discovered you" in query:
-                speak("I was created by SOFICO")
-                print("I was created by SOFICO")
-
-            elif 'news' in query:
-                news = webbrowser.open_new_tab("https://abcnews.go.com/")
-                speak('Here are some headlines from the ABCNews, Happy reading')
-                time.sleep(6)
-
-            #   elif 'search' in query or 'what' in query:
-            #       query = query.replace("search", "")
-            #       speak('Here are the results of ' + query)
-            #       webbrowser.open_new_tab("https://www.google.com/search?q=" + query)
-            #       time.sleep(5)
-
-            elif 'who is' in query or 'tell me about' in query or 'what is' in query:
-                query = query.replace("who is", "")
-                query = query.replace("tell me about", "")
-                speak(duckduckgo_scrape_knowledge(query))
-                time.sleep(5)
-
-            elif "weather" in query:
-                api_key = "8ef61edcf1c576d65d836254e11ea420"
-                base_url = "https://api.openweathermap.org/data/2.5/weather?"
-                speak("whats the city name")
-                city_name = takeCommand()
-                complete_url = base_url + "appid=" + api_key + "&q=" + city_name
-                response = requests.get(complete_url)
-                x = response.json()
-                if x["cod"] != "404":
-                    y = x["main"]
-                    current_temperature = int(
-                        y["temp"]) - 273  # round the temperature in Kelvin, then convert to Celcius
-                    current_humidiy = y["humidity"]
-                    z = x["weather"]
-                    weather_description = z[0]["description"]
-                    speak(" It's currently " +
-                          str(weather_description) +
-                          "\n , with the temperature of " +
-                          str(current_temperature) + "degree"
-                                                     "\n and humidity in percentage is " +
-                          str(current_humidiy))
-
-                    print(" It's currently " +
-                          str(weather_description) +
-                          "\n , with the temperature of " +
-                          str(current_temperature) + " degree"
-                                                     "\n and humidity is " +
-                          str(current_humidiy) + "percent.")
-
-                else:
-                    speak("City not found? ")  # can be repeat once, if not then just exit
-
-            elif 'joke' in query:
-                joke = pyjokes.get_joke()
-                speak(joke)
-                print(joke)
-
-            elif "windows view" in query:
-                # Window + Tab key
-                pyautogui.hotkey('winleft', 'tab')
-                time.sleep(0.1)
-
-            # Open Closing Apps (Dictapp.py)
-            elif "open" in query or "launch" in query:
-                openappweb(query)
-            elif "close" in query:
-                closeappweb(query)
-
-time.sleep(3)
+        flag = False
+        call = read_voice_cmd()
+        if auto_recognize(call, flag) is True:
+            activate()
+            print("Listening...")
+            query = read_voice_cmd()
+            command = preprocess_command(query)
+            if command or command != "":
+                finish()
+                try:
+                    intents = training_model.get_intent(trained_model, command)
+                    print('Intent: ', intents)
+                    responses = TrainingModel.get_response(intents, model.data)
+                    final_result = intents_load(command, intents[0], responses)
+                except Exception as e:
+                    print(e)
+                    final_result = ''
+                """
+                USE final_result FOR DISPLAY OUTPUT ONLY, NO CONFIGURATION.
+                """
+                print("Answer: " + final_result)
+                try:
+                    speak(final_result)
+                except AssertionError:
+                    print("Cancel command.")
