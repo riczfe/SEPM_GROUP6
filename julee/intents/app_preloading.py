@@ -7,7 +7,7 @@ def app_preloading():
 
     # apps that count as file explorer(Ctrl + W)
     explorer_apps = {"control panel": "control", "my folder": ".", "this pc": "explorer", "file explorer": "explorer",
-                     "explorer": "explorer"}
+                     "explorer": "explorer", "documents": "documents"}
 
     # apps not include in windows 10
     other_apps = {"illustrator": "illustrator", "telegram": "telegram", "photoshop": "Photoshop",

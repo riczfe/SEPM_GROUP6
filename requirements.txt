@@ -1,4 +1,4 @@
-numpy==1.22.3
+numpy~=1.19.5
 PyAudio==0.2.11
 scikit-image==0.19.2
 scipy==1.8.0
@@ -14,3 +14,4 @@ playsound==1.2.2
 nltk==3.6.7
 tensorflow==2.6.2
 pygame==2.1.2
+pyttsx3~=2.90
