@@ -139,7 +139,7 @@
         "who ","who is ", "who are ",
         "search ",  "search on google ", "about",
         "why ", "why are ", "why is ",
-        "when ", "when is ", "when are "
+        "when ", "when is ", "when are ", "how to"
       ],
       "response": [""]
     },
@@ -156,6 +156,22 @@
       "tag": "control_close",
       "utterances": [
         "close", "exit", "stop"
+      ],
+      "response": [""]
+    },
+
+    {
+      "tag": "control_mode",
+      "utterances":[
+        "control mode", "voice control", "mouse and keyboard control", "smart control"
+      ],
+      "response": [""]
+    },
+
+    {
+      "tag": "win_placement",
+      "utterances": [
+        "maximize", "full screen", "full size", "phone screen"
       ],
       "response": [""]
     }

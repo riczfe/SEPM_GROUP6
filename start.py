@@ -17,7 +17,8 @@ from julee.intents.weather import get_weather
 from julee.intents.wikipedia import get_wikipedia
 from julee.intents.open import get_open
 from julee.intents.close import get_close
-
+from julee.control.main import control_mode
+from julee.control.others import fullscreen_mode
 
 # using gTTS to read text
 def speak(text):
@@ -164,6 +165,14 @@ def intents_load(command_intent, intent, response):
     elif intent == 'control_close':
         result = get_close(command_intent)
         return result
+
+    elif intent == 'control_mode':
+        control_mode()
+        return ""
+
+    elif intent == 'win_placement':
+        fullscreen_mode()
+        return ""
 
 
 if __name__ == '__main__':
