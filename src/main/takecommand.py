@@ -20,6 +20,7 @@ from julee.intents.close import get_close
 from julee.control.main import control_mode
 from julee.control.others import fullscreen_mode
 
+
 # using gTTS to read text
 def speak(text):
     # print(text)
@@ -71,29 +72,16 @@ def read_voice_cmd():
     return voice_input.lower()
 
 
-# listening until julee is called
-def auto_recognize(command_rec, flag):
-    # it is impossible to know the word "julee", so have to put the word with similar sound
-    keywords = ["julie", "julee", "yulee", "yulie", "jewelry", "jule",
-                "julia", "juli", "julio", "julay", "juley", "julery",
-                "jullie", "jully", "julet", "juli", "rulie", "jolie", "jolee",
-                "guillie", "julien", "juni"]
-
-    # check if keyword appear
-    for i in keywords:
-        if i in command_rec:
-            flag = True
-            break
-    return flag
-
-
 # loading trained model for prediction
 def load_model():
     words = model.words
     classes = model.classes
 
     training_model_temp = TrainingModel(words, classes, model.data_x, model.data_y)
-    trained_model_temp = tf.keras.models.load_model("./model/final_model.h5")
+    # for java
+    trained_model_temp = tf.keras.models.load_model("src/main/model/final_model.h5")
+    # for python
+    # trained_model_temp = tf.keras.models.load_model("model/final_model.h5")
     return training_model_temp, trained_model_temp
 
 
@@ -112,7 +100,7 @@ def preprocess_command(preprocess_input):
 
 
 def intents_load(command_intent, intent, response):
-    simples = ["greeting", "alt_greet", "simple_question", "bye", "introduction", "skill", "misunderstanding"]
+    simples = ["greeting", "alt_greet", "simple_question", "introduction", "skill", "misunderstanding"]
     for i in simples:
         if intent == i:
             result = response
@@ -149,7 +137,7 @@ def intents_load(command_intent, intent, response):
         result = google_search(command_intent)
         if result is not None:
             print(result)
-            return 'Here are some information.'
+            return response
         else:
             result = 'Cancel searching.'
             return result
@@ -177,29 +165,36 @@ def intents_load(command_intent, intent, response):
 
 if __name__ == '__main__':
     training_model, trained_model = load_model()
+    activate()
     while True:
         flag = False
-        call = read_voice_cmd()
-        if auto_recognize(call, flag) is True:
-            activate()
-            print("Listening...")
-            query = read_voice_cmd()
-            command = preprocess_command(query)
-            if command or command != "":
-                finish()
-                try:
-                    intents = training_model.get_intent(trained_model, command)
-                    print('Intent: ', intents)
-                    responses = TrainingModel.get_response(intents, model.data)
+        query = read_voice_cmd()
+        command = preprocess_command(query)
+        ######################################################################
+        # for debug, comment the 2 lines above and remove comment the code below
+        # command = input("tpye pls: ")
+        ######################################################################
+        final_result = ''
+        if command or command != "":
+            finish()
+            try:
+                intents = training_model.get_intent(trained_model, command)
+                print('Intent: ', intents)
+                responses = TrainingModel.get_response(intents, model.data)
+                if intents[0] == 'bye':
+                    print(responses)
+                    speak(responses)
+                    break
+
+                else:
                     final_result = intents_load(command, intents[0], responses)
-                except Exception as e:
-                    print(e)
-                    final_result = ''
-                """
-                USE final_result FOR DISPLAY OUTPUT ONLY, NO CONFIGURATION.
-                """
-                print("Answer: " + final_result)
-                try:
-                    speak(final_result)
-                except AssertionError:
-                    print("Cancel command.")
+            except Exception as e:
+                print(e)
+            """
+            USE final_result FOR DISPLAY OUTPUT ONLY, NO CONFIGURATION.
+            """
+            print("Answer: " + final_result)
+            try:
+                speak(final_result)
+            except AssertionError:
+                print("Cancel command.")

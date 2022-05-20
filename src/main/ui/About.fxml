@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="445.0" prefWidth="400.0" styleClass="dark-canvas" stylesheets="@../css/stylesheet.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.controller.AboutController">
+   <children>
+      <VBox alignment="TOP_CENTER" layoutY="7.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="175.0" prefWidth="400.0" spacing="10.0">
+         <children>
+            <Label alignment="CENTER" contentDisplay="CENTER" text="About this app" textFill="WHITE">
+               <font>
+                  <Font name="Microsoft YaHei" size="27.0" />
+               </font>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </Label>
+            <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="116.0" prefWidth="378.0" spacing="20.0" styleClass="hbox">
+               <children>
+                  <ImageView fitHeight="53.0" fitWidth="53.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../icon_small.png" />
+                     </image>
+                  </ImageView>
+                  <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="73.0" prefWidth="286.0">
+                     <children>
+                        <Label maxHeight="1.7976931348623157E308" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" text="Julee" textFill="WHITE" wrapText="true">
+                           <font>
+                              <Font name="Candara Bold" size="23.0" />
+                           </font>
+                        </Label>
+                        <Label maxHeight="1.7976931348623157E308" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" text="Version: 1.0.0.4" textFill="WHITE" wrapText="true">
+                           <font>
+                              <Font name="Candara" size="19.0" />
+                           </font>
+                        </Label>
+                        <Label maxHeight="1.7976931348623157E308" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" text="No updates available" textFill="#b2acac" wrapText="true">
+                           <font>
+                              <Font name="Candara" size="19.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </VBox>
+               </children>
+               <padding>
+                  <Insets left="20.0" />
+               </padding>
+            </HBox>
+         </children>
+      </VBox>
+      <VBox alignment="CENTER_LEFT" layoutX="7.0" layoutY="335.0" prefHeight="98.0" prefWidth="378.0" spacing="10.0" style="-fx-border-color: #8b8b8b; -fx-border-width: 1px 0px 0px 0px;">
+         <children>
+            <Label contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="39.0" prefWidth="356.0" text="App created by: Dat Nguyen, Kha Tran" textFill="#cccccc" wrapText="true">
+               <font>
+                  <Font name="Candara" size="19.0" />
+               </font>
+               <VBox.margin>
+                  <Insets left="19.0" />
+               </VBox.margin>
+            </Label>
+            <Label contentDisplay="CENTER" maxHeight="1.7976931348623157E308" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" text="UI design by: Dat Nguyen" textFill="#cccccc" wrapText="true">
+               <font>
+                  <Font name="Candara" size="19.0" />
+               </font>
+               <VBox.margin>
+                  <Insets left="19.0" />
+               </VBox.margin>
+            </Label>
+         </children>
+      </VBox>
+      <Label contentDisplay="CENTER" layoutX="299.0" layoutY="420.0" maxHeight="1.7976931348623157E308" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" text="MIT License" textFill="#c7bbbb82" wrapText="true">
+         <font>
+            <Font name="Candara" size="19.0" />
+         </font>
+      </Label>
+      <Label contentDisplay="CENTER" layoutX="124.0" layoutY="191.0" maxHeight="1.7976931348623157E308" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" text="about Julee." textFill="#cccccc" wrapText="true">
+         <font>
+            <Font name="Candara" size="19.0" />
+         </font>
+      </Label>
+      <Hyperlink layoutX="21.0" layoutY="186.0" onMouseClicked="#GitHubLink" text="Learn more" textFill="#69d3ff" underline="true" wrapText="true">
+         <font>
+            <Font name="Candara" size="19.0" />
+         </font>
+      </Hyperlink>
+      <Label contentDisplay="CENTER" layoutX="26.0" layoutY="301.0" maxHeight="1.7976931348623157E308" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" text="© Copyright 2022 Julee" textFill="#cccccc" wrapText="true">
+         <font>
+            <Font name="Candara" size="19.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXCheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="243.0" prefWidth="400.0" styleClass="Anchorpane" stylesheets="@../css/stylesheet.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.controller.NotificationController">
+   <children>
+      <Label layoutX="15.0" layoutY="84.0" prefHeight="76.0" prefWidth="370.0" text="We are not responsible for any error might occur if you do not follow the instruction given above." textFill="#d3d3d3" wrapText="true">
+         <font>
+            <Font name="Candara Bold" size="17.0" />
+         </font>
+      </Label>
+      <JFXButton fx:id="btn_accept" disable="true" layoutX="74.0" layoutY="194.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#agree_close" prefHeight="35.0" prefWidth="111.0" ripplerFill="WHITE" styleClass="buttons" text="I understand ">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </JFXButton>
+      <Label layoutX="15.0" layoutY="14.0" prefHeight="76.0" prefWidth="370.0" text="For safety reason, please close the command prompt terminal after turn off Voice Control, or try saying &quot;Exit Control Mode&quot;." textFill="#ff3636" wrapText="true">
+         <font>
+            <Font name="Candara Bold" size="17.0" />
+         </font>
+      </Label>
+      <JFXCheckBox fx:id="agreeCheckBox" checkedColor="#616060" layoutX="14.0" layoutY="160.0" text="I have read and agree to the Safety Rules" textFill="#e1dada" />
+      <JFXButton fx:id="btn_decline" layoutX="225.0" layoutY="194.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#decline_close" prefHeight="35.0" prefWidth="111.0" ripplerFill="WHITE" styleClass="buttons" text="No, let me out">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </JFXButton>
+   </children>
+   <effect>
+      <DropShadow height="73.86" radius="31.7675" spread="0.15" width="55.21" />
+   </effect>
+</AnchorPane>

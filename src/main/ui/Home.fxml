@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.ColorAdjust?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="445.0" prefWidth="400.0" styleClass="dark-canvas" stylesheets="@../css/stylesheet.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.controller.HomeController">
+   <children>
+      <Pane fx:id="topPane" prefHeight="84.0" prefWidth="400.0">
+         <children>
+            <Label layoutX="20.0" layoutY="21.0" text="What I can help you with?" textFill="#e1dada">
+               <font>
+                  <Font name="Candara Bold" size="21.0" />
+               </font>
+            </Label>
+            <Label layoutX="21.0" layoutY="54.0" maxHeight="1.7976931348623157E308" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" text="Try saying &quot;Hey Julee&quot; or click on the button" textFill="#b5b2b2" wrapText="true">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+      <Pane fx:id="inputPane" prefHeight="93.0" prefWidth="400.0" visible="false">
+         <children>
+            <Label fx:id="txtInput" layoutX="17.0" layoutY="20.0" prefHeight="77.0" prefWidth="365.0" textAlignment="JUSTIFY" textFill="#e1dada" wrapText="true">
+               <font>
+                  <Font name="Candara" size="19.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+      <Pane layoutX="100.0" layoutY="73.0" prefHeight="158.0" prefWidth="200.0">
+         <children>
+            <ImageView fx:id="fixedCircle" fitHeight="161.0" fitWidth="238.0" layoutX="-7.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../data/img/Image1.png" />
+               </image>
+            </ImageView>
+            <JFXButton alignment="CENTER" contentDisplay="CENTER" layoutX="50.0" layoutY="31.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#startMicrophone" prefHeight="100.0" prefWidth="100.0" ripplerFill="WHITE" styleClass="nonBorderCircle">
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <graphic>
+                  <ImageView fx:id="img_mic" fitHeight="61.0" fitWidth="61.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../data/img/microphone.png" />
+                     </image>
+                     <effect>
+                        <ColorAdjust brightness="-0.18" contrast="-0.24" />
+                     </effect>
+                  </ImageView>
+               </graphic>
+            </JFXButton>
+            <ImageView fx:id="animatedCircle" fitHeight="161.0" fitWidth="238.0" layoutX="-7.0" pickOnBounds="true" preserveRatio="true" visible="false">
+               <image>
+                  <Image url="@../data/img/blue.gif" />
+               </image>
+               <cursor>
+                  <Cursor fx:constant="DEFAULT" />
+               </cursor>
+            </ImageView>
+            <JFXButton fx:id="btn_animated" alignment="CENTER" contentDisplay="CENTER" layoutX="50.0" layoutY="31.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#stop_listen" prefHeight="100.0" prefWidth="100.0" ripplerFill="WHITE" styleClass="nonBorderCircle" visible="false">
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </JFXButton>
+         </children>
+      </Pane>
+      <Pane fx:id="bottomPane" layoutY="231.0" prefHeight="214.0" prefWidth="400.0">
+         <children>
+            <Label layoutX="19.0" layoutY="10.0" maxHeight="1.7976931348623157E308" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" text="Something you can ask me:" textFill="#b5b2b2" wrapText="true">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <VBox alignment="CENTER" layoutY="30.0" prefHeight="177.0" prefWidth="400.0" spacing="13.0">
+               <children>
+                  <JFXButton prefHeight="43.0" prefWidth="326.0" styleClass="buttons" text="What's the weather like?">
+                     <font>
+                        <Font name="Candara Bold" size="16.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="DEFAULT" />
+                     </cursor>
+                  </JFXButton>
+                  <JFXButton prefHeight="43.0" prefWidth="326.0" styleClass="buttons" text="Who is Elon Musk?">
+                     <font>
+                        <Font name="Candara Bold" size="16.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="DEFAULT" />
+                     </cursor>
+                  </JFXButton>
+                  <JFXButton prefHeight="43.0" prefWidth="326.0" styleClass="buttons" text="Activate Control Mode">
+                     <font>
+                        <Font name="Candara Bold" size="16.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="DEFAULT" />
+                     </cursor>
+                  </JFXButton>
+               </children>
+            </VBox>
+         </children>
+      </Pane>
+      <Pane fx:id="outputPane" layoutY="231.0" prefHeight="214.0" prefWidth="400.0" visible="false">
+         <children>
+            <Label fx:id="txtOutput" alignment="TOP_LEFT" layoutX="18.0" layoutY="14.0" prefHeight="158.0" prefWidth="365.0" textFill="#e1dada" wrapText="true">
+               <font>
+                  <Font name="Candara" size="19.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+      <JFXButton fx:id="btn_stop" alignment="CENTER" contentDisplay="CENTER" layoutX="361.0" layoutY="1.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#stop_listen" prefHeight="35.0" prefWidth="35.0" styleClass="main-btns">
+         <graphic>
+            <FontAwesomeIconView glyphName="TIMES" size="1.8em" styleClass="icons" />
+         </graphic>
+      </JFXButton>
+   </children>
+</AnchorPane>

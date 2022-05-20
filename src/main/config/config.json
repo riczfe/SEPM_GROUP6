@@ -26,7 +26,8 @@
     {
       "tag": "alt_greet",
       "utterances": [
-        "how are you", "how's it going", "how is it going", "how are you doing",
+        "how are you", "how's it going",
+        "how is it going", "how are you doing",
         "how have you been"
       ],
       "response": [
@@ -41,8 +42,11 @@
     {
       "tag": "simple_question",
       "utterances": [
-        "doing", "what are you up to", "what are you up to right now", "are you doing anything",
-        "are you doing anything right now", "what are you doing these days"
+        "doing", "what are you up to",
+        "what are you up to right now",
+        "are you doing anything",
+        "are you doing anything right now",
+        "what are you doing these days"
       ],
       "response": [
         "I'm thinking about pie.",
@@ -57,7 +61,9 @@
     {
       "tag": "bye",
       "utterances": [
-        "bye", "goodbye", "see you", "see you again", "bye-bye", "see you later", "see you soon", "later"
+        "bye", "goodbye", "see you", "see you again",
+        "bye-bye", "see you later", "see you soon",
+        "later"
       ],
       "response": [
         "Take care.", "Nice talking with you.", "Bye for now.", "OK. Have a nice one."
@@ -78,10 +84,12 @@
     {
       "tag": "skill",
       "utterances": [
-        "what can you do", "what do you do", "what skills do you have", "skills", "skill", "ability","abilities"
+        "what can you do", "what do you do",
+        "what skills do you have", "skills",
+        "skill", "ability","abilities"
       ],
       "response": [
-        "I'm designed to help you. Learn more at the link below."
+        "I'm designed to help you. Learn more at https://github.com/riczfe/SEPM_GROUP6"
       ]
     },
 
@@ -141,7 +149,7 @@
         "why ", "why are ", "why is ",
         "when ", "when is ", "when are ", "how to"
       ],
-      "response": [""]
+      "response": ["Here are some information.", "I found something, check it out.", "Here is what I found."]
     },
 
     {
@@ -163,7 +171,9 @@
     {
       "tag": "control_mode",
       "utterances":[
-        "control mode", "voice control", "mouse and keyboard control", "smart control"
+        "control mode", "voice control",
+        "mouse and keyboard control",
+        "smart control"
       ],
       "response": [""]
     },
