@@ -14,7 +14,10 @@ nltk.download('punkt')
 nltk.download('wordnet')
 """
 
-with open('config/config.json') as file:
+# for java
+with open('src/main/config/config.json') as file:
+# for python
+# with open('config/config.json') as file:
     data = json.load(file)
 
 words = []
